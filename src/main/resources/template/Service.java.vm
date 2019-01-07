@@ -1,0 +1,32 @@
+package ${package}.service;
+
+import ${package}.entity.${className}Entity;
+import ${package}.vo.${className}SearchVo;
+import ${package}.vo.${className}SaveVo;
+import ${package}.vo.${className}UpdateVo;
+import com.see.common.model.PageBean;
+import com.see.modules.sys.entity.RmUserEntity;
+
+
+/**
+ * ${comments}
+ * 
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+public interface ${className}Service {
+
+	${className}Entity queryObject(${pk.attrType} ${pk.attrname});
+	
+	PageBean<${className}Entity> queryList(${className}SearchVo searchVo);
+
+	void save(RmUserEntity userEntity, ${className}SaveVo saveVo) throws Exception;
+
+	void update(RmUserEntity userEntity, ${className}UpdateVo updateVo) throws Exception;
+
+	void delete(${pk.attrType} ${pk.attrname});
+
+	void logicDelete(RmUserEntity userEntity,${pk.attrType} ${pk.attrname});
+		
+}

@@ -1,0 +1,100 @@
+package ${package}.vo;
+
+import java.io.Serializable;
+import java.util.Date;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
+#if(${hasBigDecimal})
+import java.math.BigDecimal;
+#end
+
+/**
+ * ${comments}
+ * 
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+@ApiModel(value = "${className}SearchVo", description = "${comments}")
+public class ${className}SearchVo implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
+    
+    /**
+     * 当前页数
+     */
+    @NotNull(message="当前页属性不能为空")
+    @ApiModelProperty(value="当前页数", example="1", notes="当前页数")
+    private int page;
+    
+    /**
+     * 每页显示记录数
+     */
+    @Max(value=1000, message="每页显示记录数不能超过1000")
+    @ApiModelProperty(value="每页显示记录数", example="10", notes="每页显示记录数")
+    private int limit;
+    
+#foreach ($column in $columns)
+    #if($column.attrname=='id' || $column.attrname=='creator' || $column.attrname=='createTime' 
+	     || $column.attrname=='modifier' || $column.attrname=='modifyTime')
+    #else
+    /**
+     * $column.comments
+     */
+    @ApiModelProperty(value="$column.comments", example="$column.example", notes="$column.comments")
+    private $column.attrType $column.attrname;
+	#end
+    
+#end
+
+
+    /**
+     * 设置：当前页数
+     */
+    public void setPage(int page){
+        this.page = page;
+    }
+    /**
+     * 获取：当前页数
+     */
+    public int getPage(){
+        return page;
+    }
+    /**
+     * 设置：每页显示记录数
+     */
+    public void setLimit(int limit){
+        this.limit = limit;
+    }
+    /**
+     * 获取：每页显示记录数
+     */
+    public int getLimit(){
+        return limit;
+    }
+
+
+#foreach ($column in $columns)
+	#if($column.attrname=='id' || $column.attrname=='creator' || $column.attrname=='createTime' 
+	     || $column.attrname=='modifier' || $column.attrname=='modifyTime')
+        
+    #else
+    /**
+     * 设置：${column.comments}
+     */
+    public void set${column.attrName}($column.attrType $column.attrname) {
+        this.$column.attrname = $column.attrname;
+    }
+    /**
+     * 获取：${column.comments}
+     */
+    public $column.attrType get${column.attrName}() {
+        return $column.attrname;
+    }
+	#end
+    
+#end
+}

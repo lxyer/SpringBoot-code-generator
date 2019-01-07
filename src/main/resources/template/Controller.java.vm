@@ -1,0 +1,221 @@
+package ${package}.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import ${package}.entity.${className}Entity;
+import ${package}.service.${className}Service;
+import ${package}.vo.${className}SaveVo;
+import ${package}.vo.${className}SearchVo;
+import ${package}.vo.${className}UpdateVo;
+import com.alibaba.fastjson.JSON;
+import com.see.common.base.controller.BaseController;
+import com.see.common.exception.RRException;
+import com.see.common.constants.HttpStatus;
+import com.see.common.model.PageBean;
+import com.see.common.model.Response;
+import com.see.common.validator.ValidatorUtils;
+import com.see.common.validator.group.AddGroup;
+import com.see.common.validator.group.UpdateGroup;
+
+import com.see.common.annotation.SwaggerExample;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import com.see.common.annotation.OperateLog;
+
+/**
+ * ${comments}
+ * 
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+@Api(value = "${comments}", tags = "${comments}")
+@RestController
+@RequestMapping("${pathName}")
+public class ${className}Controller extends BaseController{
+	@Autowired
+	private ${className}Service ${classname}Service;
+	
+	private Logger logger = LoggerFactory.getLogger(getClass());
+		
+    /**
+     * 列表
+     */
+    @OperateLog("获取列表")
+    @ApiOperation(value = "获取列表", notes = "获取列表", produces = "application/json")
+    @GetMapping(value = "list", produces = { "application/json;charset=UTF-8" })
+    @SwaggerExample()
+    public PageBean<${className}Entity> list(${className}SearchVo searchVo) {
+        logger.info("获取列表{} start", JSON.toJSONString(searchVo));
+		//验证
+        ValidatorUtils.validateEntity(searchVo);
+        //查询列表数据
+        PageBean<${className}Entity> pageBean = new PageBean<${className}Entity>();
+        try {
+            pageBean = ${classname}Service.queryList(searchVo);
+            logger.info("获取列表成功");
+        } catch (RRException rre) {
+            pageBean.setMsg(rre.getMsg());
+            logger.error("获取列表失败", rre);
+        } catch (Exception e) {
+            pageBean.setMsg("获取列表失败");
+            logger.error("获取列表失败", e);
+        }
+
+        logger.info("获取列表{} end", JSON.toJSONString(searchVo));
+
+        return pageBean;
+    }
+	
+    /**
+     * 信息
+     */
+    @OperateLog("查看详细信息")
+    @ApiOperation(value = "查看详细信息", notes = "查看详细信息", produces = "application/json")
+    @GetMapping(value = "info/{${pk.attrname}}", produces = { "application/json;charset=UTF-8" })
+    @SwaggerExample()
+    public Response<${className}Entity> info(@PathVariable("${pk.attrname}") ${pk.attrType} ${pk.attrname}){
+        logger.info("查看${pk.attrname}为{}的详细信息 start",${pk.attrname});
+
+        Response<${className}Entity> response = new Response<>();
+        try {
+            ${className}Entity entity = ${classname}Service.queryObject(${pk.attrname});
+			response.setData(entity);
+	        response.setCode(HttpStatus.SC_OK);        
+	        response.setMsg("查看详细信息成功");
+			
+            logger.info("查看${pk.attrname}为{}的详细信息成功", ${pk.attrname});
+        } catch (RRException rre) {
+            response.setMsg(rre.getMsg());
+            logger.error("查看详细信息失败", rre);
+        } catch (Exception e) {
+            logger.error("查看详细信息失败", e);
+            response.setMsg("查看详细信息失败");
+        }
+
+        logger.info("查看${pk.attrname}为{}的详细信息 end", ${pk.attrname});
+
+        return response;
+    }
+
+    /**
+     * 保存
+     */
+    @OperateLog("保存")
+    @ApiOperation(value = "保存", notes = "保存", produces = "application/json")
+    @PostMapping(value = "save",produces = {"application/json;charset=UTF-8"})
+    @SwaggerExample()
+    public Response<String> save(@RequestBody ${className}SaveVo saveVo){
+        logger.info("保存{} start",JSON.toJSONString(saveVo));
+
+        Response<String> response = new Response<>();
+        //验证
+        ValidatorUtils.validateEntity(saveVo);
+        try {
+            ${classname}Service.save(getUser(),saveVo);
+            response.setCode(HttpStatus.SC_OK);        
+	        response.setMsg("保存成功");
+            logger.info("保存成功");
+        } catch (RRException rre) {
+            response.setMsg(rre.getMsg());
+            logger.error("保存失败", rre);
+        } catch (Exception e) {
+            response.setMsg("保存失败");
+            logger.error("保存失败", e);
+        }
+        logger.info("保存{} end", JSON.toJSONString(saveVo));
+
+        return response;
+    }
+
+    /**
+     * 修改
+     */
+    @OperateLog("修改")
+    @ApiOperation(value = "修改", notes = "修改", produces = "application/json")
+    @PostMapping(value = "update", produces = { "application/json;charset=UTF-8" })
+    @SwaggerExample()
+    public Response<String> update(@RequestBody ${className}UpdateVo updateVo){
+        logger.info("修改{} start",JSON.toJSONString(updateVo));
+
+        Response<String> response = new Response<>();   
+        //验证
+        ValidatorUtils.validateEntity(updateVo);
+        try {
+            ${classname}Service.update(getUser(),updateVo);
+            response.setMsg("修改成功");
+            response.setCode(HttpStatus.SC_OK);
+            logger.info("修改成功");
+        } catch (RRException rre) {
+            response.setMsg(rre.getMsg());
+            logger.error("修改失败", rre);
+        } catch (Exception e) {
+            response.setMsg("修改失败");
+            logger.error("修改失败", e);
+        }
+        logger.info("修改{} end",JSON.toJSONString(updateVo));
+
+        return response;
+    }
+
+    /**
+     * 删除
+     */
+    @OperateLog("删除")
+    @ApiOperation(value = "删除", notes = "删除", produces = "application/json")
+    @DeleteMapping(value = "delete", produces = { "application/json;charset=UTF-8" })
+    @SwaggerExample()
+    public Response<String> delete(${pk.attrType} ${pk.attrname}){
+        logger.info("删除${pk.attrname}为{}的数据 start",${pk.attrname});
+
+        Response<String> response = new Response<String>();
+        try {
+            ${classname}Service.delete(${pk.attrname});
+            response.setMsg("删除成功");
+            response.setCode(HttpStatus.SC_OK);
+            logger.info("删除成功");
+        } catch (RRException rre) {
+            response.setMsg(rre.getMsg());
+            logger.error("删除失败", rre);
+        } catch (Exception e) {
+            response.setMsg("删除失败");
+            logger.error("删除失败", e);
+        }
+        logger.info("删除${pk.attrname}为{}的数据 end", ${pk.attrname});
+
+        return response;
+    }
+
+    /**
+     * 逻辑删除
+     */
+    @OperateLog("逻辑删除") 
+    @ApiOperation(value = "逻辑删除", notes = "逻辑删除", produces = "application/json")
+    @DeleteMapping(value = "logicDelete", produces = { "application/json;charset=UTF-8" })
+    @SwaggerExample()
+    public Response<String> logicDelete(${pk.attrType} ${pk.attrname}){
+        logger.info("逻辑删除${pk.attrname}为{}的数据 start",${pk.attrname});
+
+        Response<String> response = new Response<String>();
+        try {
+            ${classname}Service.logicDelete(getUser(),${pk.attrname});
+            response.setMsg("逻辑删除成功");
+            response.setCode(HttpStatus.SC_OK);
+            logger.info("逻辑删除成功");
+        } catch (RRException rre) {
+            response.setMsg(rre.getMsg());
+            logger.error("逻辑删除失败", rre);
+        } catch (Exception e) {
+            response.setMsg("逻辑删除失败");
+            logger.error("逻辑删除失败", e);
+        }
+        logger.info("逻辑删除${pk.attrname}为{}的数据 end", ${pk.attrname});
+
+        return response;
+    }
+	
+}

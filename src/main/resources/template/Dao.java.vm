@@ -1,0 +1,28 @@
+package ${package}.dao;
+
+import ${package}.entity.${className}Entity;
+import ${package}.vo.${className}SearchVo;
+import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
+
+/**
+ * ${comments}
+ * 
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+@Mapper
+public interface ${className}Dao {
+	
+    ${className}Entity queryObject(${pk.attrType} ${pk.attrname});
+    
+    List<${className}Entity> queryPage(${className}SearchVo searchVo);
+
+    int save(${className}Entity ${classname});
+    
+    int update(${className}Entity ${classname});
+    
+    int delete(${pk.attrType} ${pk.attrname});
+}
