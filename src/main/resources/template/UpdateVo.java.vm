@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import org.hibernate.validator.constraints.Length;
-
+import lombok.Data;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -41,23 +41,23 @@ public class ${className}UpdateVo implements Serializable {
 	#end
 #end
 
-#foreach ($column in $columns)
-    #if($column.attrname=='creator' || $column.attrname=='createTime' 
-	     || $column.attrname=='modifier' || $column.attrname=='modifyTime')
-        
-    #else
-	/**
-	 * 设置：${column.comments}
-	 */
-	public void set${column.attrName}($column.attrType $column.attrname) {
-		this.$column.attrname = $column.attrname;
-	}
-	/**
-	 * 获取：${column.comments}
-	 */
-	public $column.attrType get${column.attrName}() {
-		return $column.attrname;
-	}
-	#end
-#end
+###foreach ($column in $columns)
+##    #if($column.attrname=='creator' || $column.attrname=='createTime'
+##	     || $column.attrname=='modifier' || $column.attrname=='modifyTime')
+##
+##    #else
+##	/**
+##	 * 设置：${column.comments}
+##	 */
+##	public void set${column.attrName}($column.attrType $column.attrname) {
+##		this.$column.attrname = $column.attrname;
+##	}
+##	/**
+##	 * 获取：${column.comments}
+##	 */
+##	public $column.attrType get${column.attrName}() {
+##		return $column.attrname;
+##	}
+##	#end
+###end
 }
