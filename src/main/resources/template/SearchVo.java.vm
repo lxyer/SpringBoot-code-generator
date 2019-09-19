@@ -18,6 +18,7 @@ import java.math.BigDecimal;
  * @email ${email}
  * @date ${datetime}
  */
+@Data
 @ApiModel(value = "${className}SearchVo", description = "${comments}")
 public class ${className}SearchVo implements Serializable {
     private static final long serialVersionUID = 1L;

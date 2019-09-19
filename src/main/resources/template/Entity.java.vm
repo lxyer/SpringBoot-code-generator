@@ -17,6 +17,7 @@ import java.math.BigDecimal;
  * @email ${email}
  * @date ${datetime}
  */
+@Data
 @ApiModel(value = "${className}", description = "${comments}")
 public class ${className}Entity implements Serializable {
 	private static final long serialVersionUID = 1L;

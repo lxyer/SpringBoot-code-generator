@@ -4,9 +4,8 @@ import ${package}.entity.${className}Entity;
 import ${package}.vo.${className}SearchVo;
 import ${package}.vo.${className}SaveVo;
 import ${package}.vo.${className}UpdateVo;
-import com.see.common.model.PageBean;
-import com.see.modules.sys.entity.RmUserEntity;
-
+import ${package}.common.base.PageBean;
+import ${package}.common.base.entity.UserEntity;
 
 /**
  * ${comments}
@@ -21,12 +20,12 @@ public interface ${className}Service {
 	
 	PageBean<${className}Entity> queryList(${className}SearchVo searchVo);
 
-	void save(RmUserEntity userEntity, ${className}SaveVo saveVo) throws Exception;
+	void save(UserEntity userEntity, ${className}SaveVo saveVo) throws Exception;
 
-	void update(RmUserEntity userEntity, ${className}UpdateVo updateVo) throws Exception;
+	void update(UserEntity userEntity, ${className}UpdateVo updateVo) throws Exception;
 
 	void delete(${pk.attrType} ${pk.attrname});
 
-	void logicDelete(RmUserEntity userEntity,${pk.attrType} ${pk.attrname});
-		
+	void logicDelete(UserEntity userEntity,${pk.attrType} ${pk.attrname});
+
 }

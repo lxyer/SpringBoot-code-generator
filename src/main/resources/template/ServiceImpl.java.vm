@@ -1,25 +1,20 @@
 package ${package}.service.impl;
-
+import ${package}.common.base.PageBean;
+import ${package}.common.base.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.BeanUtils;
-
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import org.springframework.http.HttpStatus;
 import ${package}.dao.${className}Dao;
 import ${package}.entity.${className}Entity;
 import ${package}.service.${className}Service;
 import ${package}.vo.${className}SearchVo;
 import ${package}.vo.${className}SaveVo;
 import ${package}.vo.${className}UpdateVo;
-import com.see.common.model.PageBean;
-import com.see.common.constants.HttpStatus;
-import com.see.common.enums.UserEnum;
-import com.see.modules.sys.entity.RmUserEntity;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -55,11 +50,11 @@ public class ${className}ServiceImpl implements ${className}Service {
         //设置每页显示记录数
         pageBean.setLimit(searchVo.getLimit());
         //设置当前页数
-        pageBean.setCurr(searchVo.getPage());
+        pageBean.setCurrentPage(searchVo.getPage());
         //设置数据
         pageBean.setData(page.getList());
         //设置状态码
-        pageBean.setCode(HttpStatus.SC_OK);
+        pageBean.setCode(HttpStatus.OK.value());
         //设置返回信息
         pageBean.setMsg("查询成功");
 	    
@@ -68,7 +63,7 @@ public class ${className}ServiceImpl implements ${className}Service {
 	
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public void save(RmUserEntity userEntity, ${className}SaveVo saveVo) throws Exception{
+	public void save(UserEntity userEntity, ${className}SaveVo saveVo) throws Exception{
 	    
 	    ${className}Entity ${classname}Entity = new ${className}Entity();
         BeanUtils.copyProperties(saveVo, ${classname}Entity);
@@ -79,7 +74,7 @@ public class ${className}ServiceImpl implements ${className}Service {
 	
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public void update(RmUserEntity userEntity, ${className}UpdateVo updateVo) throws Exception{
+	public void update(UserEntity userEntity, ${className}UpdateVo updateVo) throws Exception{
 	    
         ${className}Entity ${classname}Entity = new ${className}Entity();
         BeanUtils.copyProperties(updateVo, ${classname}Entity);
@@ -94,13 +89,13 @@ public class ${className}ServiceImpl implements ${className}Service {
 	}
 	
     @Override
-    public void logicDelete(RmUserEntity userEntity,${pk.attrType} ${pk.attrname}){
+    public void logicDelete(UserEntity userEntity,${pk.attrType} ${pk.attrname}){
         
         ${className}Entity ${classname}Entity = new ${className}Entity();
         
         ${classname}Entity.set${pk.attrName}(${pk.attrname});
         //${classname}Entity.setModifier(userEntity.getId());
-        //${classname}Entity.setIsDelete(UserEnum.IS_DELETE.YES.getKey());
+        //${classname}Entity.setIsDelete(1);
         ${classname}Dao.update(${classname}Entity);
         
     }

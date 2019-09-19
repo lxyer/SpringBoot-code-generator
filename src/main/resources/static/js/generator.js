@@ -47,9 +47,9 @@ var vm = new Vue({
 	data:{
 		q:{
 			tableName: null,
-            coon: 'jdbc:mysql://rm-2zeu8v331a89513d3po.mysql.rds.aliyuncs.com:3306/db_decorate_1086',
-            user: 'dbuserb',
-            pwd: ''
+            coon: 'jdbc:mysql://39.98.186.143:3306/bjzx_icbc',
+            user: 'root',
+            pwd: 'deepchain@20190115'
 		},
         s: {
             moduleName: null,
