@@ -1,6 +1,6 @@
 package ${package}.service.impl;
-import ${package}.common.base.PageBean;
-import ${package}.common.base.entity.UserEntity;
+import com.deepsec.notarization.modules.common.base.PageBean;
+import com.deepsec.notarization.modules.common.base.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.BeanUtils;

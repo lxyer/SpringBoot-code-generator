@@ -10,12 +10,9 @@ import ${package}.service.${className}Service;
 import ${package}.vo.${className}SaveVo;
 import ${package}.vo.${className}SearchVo;
 import ${package}.vo.${className}UpdateVo;
-import com.alibaba.fastjson.JSON;
-import ${package}.common.base.controller.BaseController;
-import org.springframework.http.HttpStatus;
+import com.deepsec.notarization.modules.common.base.controller.BaseController;
 import com.deepsec.notarization.modules.common.base.PageBean;
 import com.deepsec.notarization.modules.common.base.ResponseData;
-import com.deepsec.notarization.modules.common.base.controller.BaseController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
